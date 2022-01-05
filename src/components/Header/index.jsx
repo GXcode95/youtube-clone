@@ -14,7 +14,11 @@ const Header = () => {
         <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
 
           {/***** Left Menu + Icon *****/}
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="youtube-logo" height="22px"/>
+            <img 
+              src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" 
+              alt="youtube-logo" 
+              height="22px"
+            />
             
           {/***** SearchBar *****/}
             <Box>

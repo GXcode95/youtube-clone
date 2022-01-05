@@ -4,7 +4,7 @@ import Header from 'components/Header'
 import Sidebar from 'components/Sidebar'
 import { BrowserRouter as Router,
 Routes, Route } from 'react-router-dom';
-import{ ThemeProvider, CssBaseline} from '@mui/material'
+import{ ThemeProvider, CssBaseline, Box} from '@mui/material'
 import { light } from 'style/palette'
 
 const App = () => {
@@ -14,12 +14,17 @@ const App = () => {
         <CssBaseline />
         {/* <Router> */}
           <Header />
-          <div className="app_container">
+
+          <Box display="flex" mt="3.5em">
+          {/* here mt is used to handle the size of the (fixed) header, otherwise the top of the box would be behind the header */}
             <Sidebar />
-          </div>
-          <div className="app__main">
-            <Home />
-          </div>
+            
+            <Box flex="1">
+              <Home />
+            </Box>
+
+          </Box>
+
           {/* <Routes>
             <Route path="/" element={<Home />} />
           </Routes>
