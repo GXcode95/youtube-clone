@@ -23,10 +23,10 @@ const Header = ({setSearch}) => {
   return (
       <AppBar position="fixed" color="inherit" elevation={0} sx={{height: "7em"}}>
         <Toolbar disableGutters={true}>
-          <Box display="flex" justifyContent="space-between" alignItems="center" width="100%" px={2}>
+          <Box display="flex" justifyContent="space-between" alignItems="center" width="100%" pl={3} pr={2}>
 
             {/***** Left Menu + Logo *****/}
-            <Box display="flex" alignItems="center" gap={1}>
+            <Box display="flex" alignItems="center" gap={2}>
               <TemporarySidebar />
               <img 
                 src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" 
@@ -37,14 +37,14 @@ const Header = ({setSearch}) => {
             </Box>
               
             {/***** SearchBar *****/}
-            <Box component="form" sx={{width:"100%", maxWidth:"650px"}} display="flex" justifyContent="center" onSubmit={handleSubmit}>
+            <Box component="form" sx={{width:"100%", maxWidth:"650px"}} display="flex" justifyContent="center" alignItems="center" onSubmit={handleSubmit}>
               <TextField 
                 name="searchbar"
                 variant="outlined"
                 placeholder="Rechercher"
                 size="small"
                 sx={{borderRadius: 0, width: "100%"}}
-                inputProps={{style: {fontSize: "1.7rem"}}}
+                inputProps={{style: {fontSize: "1.6rem"}}}
               />
               <Button
                 aria-label="magnifying glass"
@@ -54,11 +54,12 @@ const Header = ({setSearch}) => {
                   border: "1px solid",
                   borderColor:"grey.400", // default grey for textField
                   borderLeft: "none",
-                  borderRadius: 0,
-                  padding: "7px 0", // to have the searchButton's height equals to the textField's height
+                  borderRadius: "0 2px 2px 0" ,
+                  padding: "0.6rem 0", // to have the searchButton's height equals to the textField's height
                 }}
+                className="search-button"
               >
-                <SearchIcon sx={{color: "dark.light"}}/>
+                <SearchIcon sx={{color: "dark.light", fontSize: "2.6rem"}}/>
               </Button>
 
               <IconButton>

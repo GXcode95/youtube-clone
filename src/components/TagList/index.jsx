@@ -16,8 +16,9 @@ const TagList = ({tags}) => {
       mb="2rem" 
       pb={1.5}
     >
-      {tags && tags.map( tag => 
+      {tags && tags.map( (tag,i) => 
         <Chip 
+          key={i}
           label={tag.snippet.title}
           variant="outlined"
           sx={{fontSize: "1.4rem", borderColor: "light.light" }}

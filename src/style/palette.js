@@ -78,6 +78,28 @@ export const light = createTheme({
         disableRipple: true
       }
     },
+
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
+          borderTopLeftRadius: 2,
+          borderBottomLeftRadius: 2,
+        },
+      }
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
+          borderTopLeftRadius: 2,
+          borderBottomLeftRadius: 2,
+        },
+      }
+    },
+
+    
+    // --root
   },
 });
 export const dark = createTheme({
