@@ -1,0 +1,33 @@
+.img-container {
+  
+  overflow: hidden;
+  position:relative;
+  
+  .lazy-load-image-background {
+    height: 100%;
+    max-width: 100%;
+  }
+
+  img {
+    min-width: 100%;
+    height: 135%;
+    position: absolute; 
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto;
+  }
+  
+  .duration {
+    position: absolute; 
+    bottom: 0.4em;
+    right: 0.4em;
+    background: rgba(0,0,0,0.8);
+    padding: 0 5px;
+    
+    span {
+      color:white;
+
+    }
+  }
+}

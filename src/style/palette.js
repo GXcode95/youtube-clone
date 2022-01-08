@@ -31,7 +31,10 @@ export const light = createTheme({
           fontSize: "1.4rem",
         },
         videoTitle1: {
-
+          fontWeight: "400",
+          fontSize: "1.8rem",
+          lineHeight: "2rem",
+          whiteSpace: "normal",
         },
         videoTitle2: {
           fontWeight: "500",

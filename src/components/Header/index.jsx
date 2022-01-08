@@ -1,13 +1,12 @@
 import React from 'react'
 import './index.scss'
-import { Box, AppBar, Toolbar, Button, IconButton, Stack, TextField } from '@mui/material'
-import SearchIcon from '@mui/icons-material/Search';
+import { Box, AppBar, Toolbar, IconButton, Stack } from '@mui/material'
 import AppsIcon from '@mui/icons-material/Apps';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import LoginButton from "components/_buttons/LoginButton"
 import TemporarySidebar from 'components/_nav/TemporarySidebar'
-import MicIcon from '@mui/icons-material/Mic';
 import { useNavigate } from 'react-router-dom';
+import Searchbar from './Searchbar'
 
 const Header = ({setSearch}) => {
   const navigate = useNavigate()
@@ -37,35 +36,9 @@ const Header = ({setSearch}) => {
             </Box>
               
             {/***** SearchBar *****/}
-            <Box component="form" sx={{width:"100%", maxWidth:"650px"}} display="flex" justifyContent="center" alignItems="center" onSubmit={handleSubmit}>
-              <TextField 
-                name="searchbar"
-                variant="outlined"
-                placeholder="Rechercher"
-                size="small"
-                sx={{borderRadius: 0, width: "100%"}}
-                inputProps={{style: {fontSize: "1.6rem"}}}
-              />
-              <Button
-                aria-label="magnifying glass"
-                disableRipple
-                type="submit"
-                sx={{
-                  border: "1px solid",
-                  borderColor:"grey.400", // default grey for textField
-                  borderLeft: "none",
-                  borderRadius: "0 2px 2px 0" ,
-                  padding: "0.6rem 0", // to have the searchButton's height equals to the textField's height
-                }}
-                className="search-button"
-              >
-                <SearchIcon sx={{color: "dark.light", fontSize: "2.6rem"}}/>
-              </Button>
+            <Searchbar handleSubmit={handleSubmit}/>
 
-              <IconButton>
-                <MicIcon sx={{fontSize: "2.7rem", color: "dark.main"}}/>
-              </IconButton>
-            </Box>
+       
 
             {/***** Right Button Menu *****/}
             <Stack direction="row" justifyContent="center">

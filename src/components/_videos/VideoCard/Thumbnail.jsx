@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box } from '@mui/material'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-
+import './thumbnail.scss'
 const Thumbnail = ({video, height}) => {
   height = height ||  { xs: "calc(76vw / 1 * 0.56)",
                         sm: "calc(76vw / 2 * 0.56)",
