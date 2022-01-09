@@ -1,8 +1,18 @@
 import React from 'react'
 import { Stack, Chip } from '@mui/material'
 import './index.scss'
-const TagList = ({tags}) => {
+const TagList = ({tags, setSelectedTag, selectedTag }) => {
 
+  const handleClick = (tag) => {
+    setSelectedTag(tag)
+  }
+
+  const defineChipStyle = (tag) => {
+    return (selectedTag && selectedTag.id === tag.id ) ? 
+    { fontSize: "1.4rem", border: "none", bgcolor: "black", color: "white" } :
+    { fontSize: "1.4rem", borderColor: "light.light" }  
+  } 
+    
   return (
     <Stack 
       className="invisible-scroll"
@@ -19,11 +29,14 @@ const TagList = ({tags}) => {
       {tags && tags.map( (tag,i) => 
         <Chip 
           key={i}
+          id={`tag ${i}`}
           label={tag.snippet.title}
           variant="outlined"
-          sx={{fontSize: "1.4rem", borderColor: "light.light" }}
+          sx={e => defineChipStyle(tag)}
+          onClick={e  => handleClick(tag)}
         />
       )}
+      {console.log("tagtag => ", selectedTag)}
     </Stack>
   )
 }

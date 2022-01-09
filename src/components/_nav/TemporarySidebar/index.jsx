@@ -41,7 +41,6 @@ import VideoLibraryOutlinedIcon from '@mui/icons-material/VideoLibraryOutlined';
           <ItemRow
             icon={<ExploreOutlinedIcon sx={{fontSize: "2.6rem"}} />}
             title="Explorer" 
-            link="explorer" 
           />
           <ItemRow
             icon={<SubscriptionsOutlinedIcon sx={{fontSize: "2.6rem"}} />}
@@ -50,7 +49,6 @@ import VideoLibraryOutlinedIcon from '@mui/icons-material/VideoLibraryOutlined';
           <ItemRow
             icon={<VideoLibraryOutlinedIcon sx={{fontSize: "2.6rem"}} />}
             title="Bibliothèque" 
-            link="/"
           />
       </List>
     </Box>

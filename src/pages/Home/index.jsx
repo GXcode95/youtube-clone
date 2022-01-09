@@ -9,24 +9,31 @@ import { categories } from 'services/data.js'
 const Home = () => {
   const [videos, setVideos] = React.useState()
   const [tags, setTags] = React.useState()
+  const [selectedTag, setSelectedTag] = React.useState()
 
   React.useEffect(
     () => {
       // const getVideos = async () => {
-      //   const response = await YTAPIManager.getMostPopular()
+      //  if (selectedTag) {
+      //    const reponse = await YTAPImanager.getFeedByTag(tag.id)
+      //  } else {
+      //    const response = await YTAPIManager.getMostPopular()
+      //  }
       //   if (!response.error)
       //     setVideos(response)
       // }
+
       // getVideos()
       
+      // if (selectedTag) alert(selectedTag.snippet.title)
       setVideos(data)
       setTags(categories)
-    },[categories]
+    },[selectedTag]
   )
 
   return (
     <Box pr={{xs:2, sm:1}} pl={{xs:2, md:0}} pt="4.5em">
-      { tags && <TagList tags={tags} /> }
+      { tags && <TagList tags={tags} selectedTag={selectedTag} setSelectedTag={setSelectedTag}/> }
       { videos && <VideoGrid  videos={videos}/> }
       { console.log("video: ", videos) }
     </Box>

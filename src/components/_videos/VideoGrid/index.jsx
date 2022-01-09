@@ -1,6 +1,6 @@
 import React from 'react'
 import VideoCard from 'components/_videos/VideoCard'
-import { Grid } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 
 const VideoGrid = ({videos}) => {
 

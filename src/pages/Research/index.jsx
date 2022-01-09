@@ -11,6 +11,7 @@ const Research = ({search}) => {
   React.useEffect(
     () => {
       // const getVideos = async () => {
+      //   alert(search)
       //   const response = await APIManager.getVideoSearch(search)
       //     if (!response.error)
       //       setVideos(response)

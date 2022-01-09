@@ -27,11 +27,10 @@ const Sidebar = () => {
             title="Explorer" 
             sxText={{display: {xs: "none", lg: "block"} }}
             sxIcon={{ minWidth: {xs: 0, lg:56 } }}
-            link='/explorer'
           />
           <ItemRow
             icon={<SubscriptionsOutlinedIcon sx={{fontSize: "2.6rem"}} />}
-            title="Abonnement" 
+            title="Abonnements" 
             sxText={{display: {xs: "none", lg: "block"} }}
             sxIcon={{ minWidth: {xs: 0, lg:56 } }}
           />
@@ -40,7 +39,6 @@ const Sidebar = () => {
             title="Bibliothèque" 
             sxText={{display: {xs: "none", lg: "block"} }}
             sxIcon={{ minWidth: {xs: 0, lg:56 } }}
-            link='/'
           />
         </List>
       </nav>

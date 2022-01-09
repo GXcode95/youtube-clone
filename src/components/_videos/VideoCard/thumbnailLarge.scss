@@ -1,11 +1,11 @@
 .img-container {
-  
+  height: 100%;
   overflow: hidden;
   position:relative;
   
   .lazy-load-image-background {
     max-height: 100%;
-    width: 100%;
+    width: 120%;
   }
 
   img {
@@ -28,5 +28,11 @@
       color:white;
 
     }
+  }
+}
+
+@media (max-width: 900px) {
+  .img-container img {
+    height: 135%
   }
 }

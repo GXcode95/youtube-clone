@@ -69,6 +69,7 @@ const VideoCard = ({video, type="vertical"}) => {
 
                 <Box>
                   <Typography variant="subtitle" overflow="hidden" height="100%">
+                    {console.log(video)}
                     {video.description}
                   </Typography>
                 </Box>

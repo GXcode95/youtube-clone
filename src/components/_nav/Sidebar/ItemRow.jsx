@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 const ItemRow = ({icon, title, sxText, sxIcon, link}) => {
   const navigate = useNavigate()
   const onClick = () => {
-    navigate(link)
+    if (link) navigate(link)
   }
   return (
     <ListItem disablePadding sx={{fontSize:"3rem", p:2, m:0, position: "relative"}} onClick={onClick}>

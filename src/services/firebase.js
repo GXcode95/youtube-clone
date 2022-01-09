@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithCredential, signInWithPopup, setPersistence } from 'firebase/auth'
+import Cookies from "js-cookie";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -14,6 +15,11 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const provider = new GoogleAuthProvider();
+provider.addScope("https://www.googleapis.com/auth/yt-analytics.readonly")
+provider.addScope("https://www.googleapis.com/auth/youtube.readonly")
+provider.addScope("https://www.googleapis.com/auth/youtube")
+
+
 export const auth = getAuth(app);
 
 
@@ -22,14 +28,15 @@ export const signInWithGoogle = async () => {
 
   try {
     const token = GoogleAuthProvider.credentialFromResult(authResponse);
-
+    console.log("toto",token)
     const profile = {
       name: authResponse.user.displayName,
       email: authResponse.user.email,
       profilePic: authResponse.user.photoURL,
     }
+    Cookies.set('token', token.accessToken)
 
-    return {  profile, token }
+    return {  profile }
   } catch (error) {
     return { error }
   }

@@ -7,7 +7,6 @@ const ThumbnailLarge = ({video}) => {
   return (
     <Box className='img-container' 
       sx={{
-        height: "100%",
         width: "100%",
         position: "relative",
       }}

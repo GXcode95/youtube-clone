@@ -8,7 +8,7 @@ import TemporarySidebar from 'components/_nav/TemporarySidebar'
 import { useNavigate } from 'react-router-dom';
 import Searchbar from './Searchbar'
 
-const Header = ({setSearch}) => {
+const Header = ({ setSearch }) => {
   const navigate = useNavigate()
 
   const handleSubmit = (e) => {
@@ -32,6 +32,7 @@ const Header = ({setSearch}) => {
                 alt="youtube-logo" 
                 height="22px"
                 style={{paddingRight: "4em"}}
+                onClick={e => navigate('/')}
               />
             </Box>
               
