@@ -1,0 +1,10 @@
+.yt-container {
+  height: calc((100vw - 8rem - 402px) * 9/16 );
+  width: 100%;
+}
+
+@media (max-width: 1200px) {
+  .yt-container {
+    height: calc((100vw - 6rem ) * 9/16 );
+  } 
+}

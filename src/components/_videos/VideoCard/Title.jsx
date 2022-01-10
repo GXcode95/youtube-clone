@@ -1,10 +1,13 @@
 import React from 'react'
 import { Typography } from '@mui/material'
 
-const Title = ({video, type="vertical"}) => {
-
+const Title = ({video, variant="videoTitle1", style={} }) => {
   return (
-    <Typography variant={type === "vertical" ? "videoTitle2" : "videoTitle1"} align="center">
+    <Typography 
+      variant={variant} 
+      align="center"
+      sx={style}
+    >
       {video.title}
     </Typography>
   )

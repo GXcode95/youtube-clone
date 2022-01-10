@@ -3,7 +3,6 @@ import Home from 'pages/Home'
 import Research from 'pages/Research'
 import Video from 'pages/Video'
 import Header from 'components/Header'
-import Sidebar from 'components/_nav/Sidebar'
 import { BrowserRouter as Router,
 Routes, Route } from 'react-router-dom';
 import{ ThemeProvider, CssBaseline, Box } from '@mui/material'
@@ -18,24 +17,18 @@ const App = () => {
   const [search, setSearch] = React.useState()
 
   return (
-    <div className='App' style={{maxWidth: "100vw",maxHeight: "100vh", overflow: "hidden"}}>
+    <div className='App' style={{maxWidth: "100vw",maxHeight: "100vh", overflowX: "hidden"}}>
       <ThemeProvider theme={light}>
         <CssBaseline />
         <Router>
           <Header setSearch={setSearch} />
-          <Box display="flex" mt="5em">
-          {/* here mt is used to handle the size of the (fixed) header, otherwise the top of the box would be behind the header */}
-            <Sidebar />
-            
-            <Box flex="1" maxWidth="100%" maxHeight="96vh" sx={{overflowY:"scroll"}} pt="4em">
+          
               <Routes>
                 <Route path="/" element={<Home />} exact />
                 <Route path="/research" element={<Research search={search}/>} exact />
-                <Route path="/video" element={<Video />} exact />
+                <Route path="/video/:videoId" element={<Video />} exact />
               </Routes>
-            </Box>
 
-          </Box>
 
     {console.log("store", store)}
     {/* {console.log("Cookies # token", token )} */}

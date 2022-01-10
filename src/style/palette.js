@@ -19,7 +19,7 @@ export const light = createTheme({
     MuiButton: {
       defaultProps: {
         disableRipple: true
-      }
+      },
     },
 
     MuiTypography: {

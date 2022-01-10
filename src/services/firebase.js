@@ -28,7 +28,6 @@ export const signInWithGoogle = async () => {
 
   try {
     const token = GoogleAuthProvider.credentialFromResult(authResponse);
-    console.log("toto",token)
     const profile = {
       name: authResponse.user.displayName,
       email: authResponse.user.email,

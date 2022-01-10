@@ -48,27 +48,28 @@ const buildVideoObj = async (data) => {
   try {
     const videos = await Promise.all(data.items.map( async (item) => {
       const video = {}
-      
       // Video infos
       video.thumbnails = item.snippet.thumbnails
       video.thumbnails.best = bestThumbnails(video.thumbnails)
+      video.id = item.contentDetails.id || item.id
       video.title = item.snippet.localized.title
       video.description = item.snippet.localized.description || ""
       video.duration = formatDuration(item.contentDetails.duration)
       video.categoryId = item.snippet.categoryId
-      video.id = item.contentDetails.id
       video.statistics = item.statistics
       video.publishedAt = item.snippet.publishedAt
       
+      console.log("VIDEO # 1")
+      
+      const channelRespsonse = await YTAPIManager.getChannelThumbnails(item.snippet.channelId)
       // Channel infos
       video.channel = {
         title: item.snippet.channelTitle,
         id: item.snippet.channelId,
+        statistics: channelRespsonse.statistics,
+        thumbnails: {...channelRespsonse.snippet.thumbnails, best:bestThumbnails(channelRespsonse.snippet.thumbnails)},
       }
-      const resp = await YTAPIManager.getChannelThumbnails(item.snippet.channelId)
-      video.channel.thumbnails  = resp
-      video.channel.thumbnails.best = bestThumbnails(resp)
-      
+      console.log("VIDEO # 2")
       
       return video
     }))
@@ -83,11 +84,17 @@ const buildVideoObj = async (data) => {
 
 const buildVideoSearchObj = async (data) => {
   try {
-    const videos = await Promise.all(data.items.map( async (item) => {
-      console.log("lkfjdlksf", item)
+    const tempVideos = await Promise.all(data.items.map( async (item) => {
       const video = await YTAPIManager.getVideoById(item.id.videoId) 
       return video
     }))
+    // sometimes video don't have snippet, so i won't use this video (to much missing info without snippet)
+    // when a video have no snippet the YTAPIManager.getVideoById() function will return undefined
+    // so i loop through the tempvideos array to keep only the value that aren't undefined
+    const videos = [] 
+    tempVideos.map(video => {
+        if(video) videos.push(video)
+      })
 
     return videos
   } catch(error) {
@@ -119,6 +126,33 @@ const buildSubscriptions = async (data) => {
   }
 }
 
+const buildCommentObj = async (data) => {
+  try {
+    const comments = await Promise.all(data.items.map( async (item) => {
+      const comment = {
+        id: item.id,
+        text: item.snippet.topLevelComment.snippet.textDisplay,
+        viewerRating: item.snippet.topLevelComment.snippet.viewerRating,
+        likeCount: item.snippet.topLevelComment.snippet.likeCount,
+        publishedAt: item.snippet.topLevelComment.snippet.publishedAt,
+        updatedAt: item.snippet.topLevelComment.snippet.updatedAt,
+        author: {
+          name: item.snippet.topLevelComment.snippet.authorDisplayName,
+          avatarUrl: item.snippet.topLevelComment.snippet.authorProfileImageUrl,
+          channelUrl: item.snippet.topLevelComment.snippet.authorChannelUrl,
+          channelId: item.snippet.topLevelComment.snippet.authorChannelId.value,
+        },
+      }
+      return comment
+    }))
+
+    return comments
+  } catch (error) {
+    console.log("ERROR COMMENT BUILD:", error)
+    return { error }
+  }
+}
+
 
 export default class YTAPIManager {
     
@@ -132,14 +166,15 @@ export default class YTAPIManager {
   }
 
   static async getChannelThumbnails(channelId) {
-    const channelResponse = await API.get(`channels?part=snippet&id=${channelId}`)
-    // console.log("APIM # getChannelThumbNail ", channelResponse)
+    const channelResponse = await API.get(`channels?part=statistics%2C%20snippet&id=${channelId}`)
+    console.log("APIM # getChannelThumbNail ", channelResponse)
     if (channelResponse.error) {
       console.log("APIM # getChannelThumbNail # ERROR", channelResponse.error)
       return 
     }
     else {
-      return channelResponse.data.items[0].snippet.thumbnails
+      console.log("APIM # getChannelThumbNail # OK", channelResponse.data.items[0])
+      return channelResponse.data.items[0]
     }
   }
 
@@ -152,13 +187,23 @@ export default class YTAPIManager {
     return videos
   }
 
-  static async getVideoById (id) {
+  static async getVideoById(id) {
     const videoResponse = await API.get(`videos?part=snippet%2CcontentDetails%2Cstatistics&id=${id}`)
-    // console.log("APIM # getVideoById", videoResponse)
+    console.log("APIM # getVideoById", videoResponse)
     
     const videos = await buildVideoObj(videoResponse.data)
-
+    console.log(videos)
     return videos[0]
+  }
+
+  static async getRelatedVideos(videoId) {
+    const videosResponse = await API.get(`search?part=snippet&relatedToVideoId=${videoId}&type=video&maxResults=15`)
+
+    console.log("APIM # getRelatedVideo", videosResponse)
+    
+    const videos = await buildVideoSearchObj(videosResponse.data)
+
+    return videos
   }
 
   static async  getSubscriptions () {
@@ -176,4 +221,12 @@ export default class YTAPIManager {
     }
   }
 
+  static async getVideoComments(videoId) {
+    const commentsResponse = await API.get(`commentThreads?part=snippet&videoId=${videoId}`)
+    console.log("APIM # getComments", commentsResponse)
+    
+    const comments = await buildCommentObj(commentsResponse.data)
+    console.log("APIM # getComments # RETURN", comments)
+    return comments
+  }
 }
