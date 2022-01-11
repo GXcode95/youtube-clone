@@ -1,11 +1,23 @@
 import React from 'react'
 import { Typography } from '@mui/material'
 import formatPublishDate from 'helpers/formatPublishDate'
-const Statistics = ({video, style={} }) => {
+import addSpaceToNumber from 'helpers/addSpaceToNumbers'
+import formatBigNumber from 'helpers/formatBigNumber'
+
+const Statistics = ({video, style={}, compact=true }) => {
+  
+  const handleViews = () => {
+    return compact ?
+      formatBigNumber(video.statistics.viewCount) :
+      addSpaceToNumber(video.statistics.viewCount)
+  }
+  
 
   return (
     <Typography variant="videoSubtitle" align="center" sx={style}>
-      { video.statistics.viewCount } vues<span style={{margin: "0 4px"}} >•</span> Il y a {formatPublishDate(video.publishedAt)}
+      { handleViews() } vues
+      <span style={{margin: "0 4px"}} >•</span>
+      Il y a {formatPublishDate(video.publishedAt)}
     </Typography>
   )
 }

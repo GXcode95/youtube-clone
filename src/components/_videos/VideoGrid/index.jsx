@@ -2,7 +2,7 @@ import React from 'react'
 import VideoCard from 'components/_videos/VideoCard'
 import { Box, Grid } from '@mui/material'
 
-const VideoGrid = ({videos}) => {
+const VideoGrid = ({videos, loadMore}) => {
 
   return (
     <Grid container rowSpacing={2}>

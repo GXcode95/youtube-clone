@@ -3,6 +3,7 @@ import { Avatar, Box, Button, IconButton, Stack, Typography } from '@mui/materia
 import ThumbDownAltOutlinedIcon from '@mui/icons-material/ThumbDownAltOutlined'
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined'
 import formatPublishDate from 'helpers/formatPublishDate'
+import addSpaceToNumber from 'helpers/addSpaceToNumbers'
 
 const CommentCard = ({comment}) => {
 
@@ -33,7 +34,7 @@ const CommentCard = ({comment}) => {
             <ThumbUpOutlinedIcon sx={{fontSize:'1.6rem'}}/>
           </IconButton>
           <Typography mr={0.8} sx={{fontSize: "1.2rem"}}>
-            {comment.likeCount}
+            {addSpaceToNumber(comment.likeCount)}
           </Typography>
           <IconButton>
             <ThumbDownAltOutlinedIcon />

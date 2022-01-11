@@ -2,6 +2,7 @@ import React from 'react'
 import Home from 'pages/Home'
 import Research from 'pages/Research'
 import Video from 'pages/Video'
+import NotFound from 'pages/NotFound'
 import Header from 'components/Header'
 import { BrowserRouter as Router,
 Routes, Route } from 'react-router-dom';
@@ -27,6 +28,7 @@ const App = () => {
                 <Route path="/" element={<Home />} exact />
                 <Route path="/research" element={<Research search={search}/>} exact />
                 <Route path="/video/:videoId" element={<Video />} exact />
+                <Route path="*" element={<NotFound />} />
               </Routes>
 
 

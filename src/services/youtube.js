@@ -4,7 +4,8 @@ import Cookies from 'js-cookie'
 const API = axios.create({ 
   baseURL: 'https://youtube.googleapis.com/youtube/v3/',
   params: {
-    key: process.env.REACT_APP_YOUTUBE_KEY
+    key: process.env.REACT_APP_YOUTUBE_KEY,
+    regionCode: "FR"
   },
 });
 
@@ -40,7 +41,8 @@ const formatDuration = (isoDuration) => {
   // It can be parse manually be moment offer a faster way
   let duration = moment.duration(isoDuration)._data
   let min = duration.hours * 60 + duration.minutes
-  return(min + ":" + duration.seconds)
+  let seconds = duration.seconds > 9 ? duration.seconds : "0" + duration.seconds 
+  return(min + ":" + seconds)
    
 }
 
@@ -59,8 +61,6 @@ const buildVideoObj = async (data) => {
       video.statistics = item.statistics
       video.publishedAt = item.snippet.publishedAt
       
-      console.log("VIDEO # 1")
-      
       const channelRespsonse = await YTAPIManager.getChannelThumbnails(item.snippet.channelId)
       // Channel infos
       video.channel = {
@@ -69,7 +69,6 @@ const buildVideoObj = async (data) => {
         statistics: channelRespsonse.statistics,
         thumbnails: {...channelRespsonse.snippet.thumbnails, best:bestThumbnails(channelRespsonse.snippet.thumbnails)},
       }
-      console.log("VIDEO # 2")
       
       return video
     }))
@@ -156,40 +155,55 @@ const buildCommentObj = async (data) => {
 
 export default class YTAPIManager {
     
-  static async getMostPopular() {
-    const videoResponse = await API.get(`videos?part=snippet%2C%20contentDetails%2C%20statistics&chart=mostPopular&maxResults=25`)
-    console.log("APIM # getMostPopular", videoResponse)
+  static async getMostPopular(pageToken) {
+    const url = pageToken ? 
+    `videos?part=snippet%2C%20contentDetails%2C%20statistics&chart=mostPopular&maxResults=20&pageToken=${pageToken}` :
+    `videos?part=snippet%2C%20contentDetails%2C%20statistics&chart=mostPopular&maxResults=20`
+    
+    const videoResponse = await API.get(url)
+
+    // console.log("APIM # getMostPopular", videoResponse)
 
     const videos = await buildVideoObj(videoResponse.data)
-    
+
+    videoResponse.data.nextPageToken ?
+      Cookies.set("nextPageToken", videoResponse.data.nextPageToken) :
+      Cookies.remove("nextPageToken")
+
     return videos
   }
 
   static async getChannelThumbnails(channelId) {
     const channelResponse = await API.get(`channels?part=statistics%2C%20snippet&id=${channelId}`)
-    console.log("APIM # getChannelThumbNail ", channelResponse)
+    // console.log("APIM # getChannelThumbNail ", channelResponse)
     if (channelResponse.error) {
-      console.log("APIM # getChannelThumbNail # ERROR", channelResponse.error)
+      // console.log("APIM # getChannelThumbNail # ERROR", channelResponse.error)
       return 
     }
     else {
-      console.log("APIM # getChannelThumbNail # OK", channelResponse.data.items[0])
       return channelResponse.data.items[0]
     }
   }
 
-  static async getVideoSearch(query) {
-    const videoResponse = await API.get(`search?part=snippet&maxResults=15&q=${query}`)
-    console.log("APIM # getVideoSearch", videoResponse)
+  static async getVideoSearch(query, pageToken) {
+    const url = pageToken ? 
+    `search?part=snippet&maxResults=15&q=${query}&pageToken=${pageToken}` :
+    `search?part=snippet&maxResults=15&q=${query}`
+    const videosResponse = await API.get(url)
+    // console.log("APIM # getVideoSearch", videosResponse)
     
-    const videos = await buildVideoSearchObj(videoResponse.data)
+    const videos = await buildVideoSearchObj(videosResponse.data)
+
+    videosResponse.data.nextPageToken ?
+      Cookies.set("nextPageToken", videosResponse.data.nextPageToken) :
+      Cookies.remove("nextPageToken")
 
     return videos
   }
 
   static async getVideoById(id) {
     const videoResponse = await API.get(`videos?part=snippet%2CcontentDetails%2Cstatistics&id=${id}`)
-    console.log("APIM # getVideoById", videoResponse)
+    // console.log("APIM # getVideoById", videoResponse)
     
     const videos = await buildVideoObj(videoResponse.data)
     console.log(videos)
@@ -199,7 +213,7 @@ export default class YTAPIManager {
   static async getRelatedVideos(videoId) {
     const videosResponse = await API.get(`search?part=snippet&relatedToVideoId=${videoId}&type=video&maxResults=15`)
 
-    console.log("APIM # getRelatedVideo", videosResponse)
+    // console.log("APIM # getRelatedVideo", videosResponse)
     
     const videos = await buildVideoSearchObj(videosResponse.data)
 
@@ -209,24 +223,33 @@ export default class YTAPIManager {
   static async  getSubscriptions () {
     try {
       const subscriptionsResponse = await authAPI.get("/subscriptions?part=snippet%2CcontentDetails&mine=true")
-      console.log("APIM # getSubscriptions", subscriptionsResponse)
+      // console.log("APIM # getSubscriptions", subscriptionsResponse)
       
       const subscriptions = await buildSubscriptions(subscriptionsResponse.data)
       console.log("reponse subs", subscriptions)
 
       return subscriptions
     } catch (error) {
-      console.log("APIM # getSubscriptions", error)
+      // console.log("APIM # getSubscriptions", error)
       return {error}
     }
   }
 
-  static async getVideoComments(videoId) {
+  static async getVideoComments(videoId, pageToken) {
+    const url = pageToken ? 
+      `commentThreads?part=snippet&videoId=${videoId}&pageToken=${pageToken}` :
+      `commentThreads?part=snippet&videoId=${videoId}`
+
     const commentsResponse = await API.get(`commentThreads?part=snippet&videoId=${videoId}`)
-    console.log("APIM # getComments", commentsResponse)
+    // console.log("APIM # getComments", commentsResponse)
     
     const comments = await buildCommentObj(commentsResponse.data)
-    console.log("APIM # getComments # RETURN", comments)
+    // console.log("APIM # getComments # RETURN", comments)
+
+    commentsResponse.data.nextPageToken ?
+      Cookies.set("nextPageToken", commentsResponse.data.nextPageToken) :
+      Cookies.remove("nextPageToken")
+
     return comments
   }
 }

@@ -7,6 +7,7 @@ import ChannelThumbnail from './ChannelThumbnail'
 import ChannelTitle from './ChannelTitle'
 import SubscriptionButton from 'components/_buttons/SubscriptionButton'
 import formatBigNumber from 'helpers/formatBigNumber'
+
 const CardBig = ({video}) => {
   const [readMore, setReadMore] = React.useState(false)
 
@@ -34,7 +35,7 @@ const CardBig = ({video}) => {
       <Box mt={2}>
         <Title video={video} sx={{fontSize: "1.8rem", fontWeight: 400}}/>
         <Box mt={2}>
-          <Statistics video={video} style={{fontSize: "1.4rem"}}/>
+          {/* <Statistics video={video} style={{fontSize: "1.4rem"}} compact={false}/> */}
         </Box>
       </Box>
       
