@@ -81,15 +81,7 @@ const Home = () => {
                       <VideoCard video={video} />
                   </Grid>
                 )
-              }
-                // {  ? 
-                //   <Grid item ref={lastVideoElementRef} lg={3} md={4} sm={6} xs={12} key={i}>
-                //       <VideoCard video={video} />
-                //   </Grid>
-                //   :
-                  
-                // }
-              )}
+              })}
               {loading && <Progress/> }
             </Grid>  
             
