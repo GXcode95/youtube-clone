@@ -23,20 +23,20 @@ provider.addScope("https://www.googleapis.com/auth/youtube")
 export const auth = getAuth(app);
 
 
-export const signInWithGoogle = async () => {
-  const authResponse = await signInWithPopup(auth, provider)
+// export const signInWithGoogle = async () => {
+//   const authResponse = await signInWithPopup(auth, provider)
 
-  try {
-    const token = GoogleAuthProvider.credentialFromResult(authResponse);
-    const profile = {
-      name: authResponse.user.displayName,
-      email: authResponse.user.email,
-      profilePic: authResponse.user.photoURL,
-    }
-    Cookies.set('token', token.accessToken)
+//   try {
+//     const token = GoogleAuthProvider.credentialFromResult(authResponse);
+//     const profile = {
+//       name: authResponse.user.displayName,
+//       email: authResponse.user.email,
+//       profilePic: authResponse.user.photoURL,
+//     }
+//     Cookies.set('token', token.accessToken)
 
-    return {  profile }
-  } catch (error) {
-    return { error }
-  }
-};
+//     return {  profile }
+//   } catch (error) {
+//     return { error }
+//   }
+// };

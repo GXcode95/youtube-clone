@@ -1,34 +1,34 @@
 import React from 'react'
-import { signInWithGoogle} from 'services/firebase'
 import { Button } from '@mui/material'
-import { useDispatch } from 'react-redux'
-import { loginRequest, loginFail, loginSuccess,
-  fetchSubscriptionsRequest, fetchSubscriptionsSuccess, fetchSubscriptionsFail
-} from 'store/user/actions'
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import YTAPIManager from 'services/youtube'
+// import { signInWithGoogle} from 'services/firebase'
+// import { useDispatch } from 'react-redux'
+// import { loginRequest, loginFail, loginSuccess,
+//   fetchSubscriptionsRequest, fetchSubscriptionsSuccess, fetchSubscriptionsFail
+// } from 'store/user/actions'
 const LoginButton = () => {
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   
-  const handleClick = async () => {
-    dispatch(loginRequest())
-    const authResponse = await signInWithGoogle()
-    authResponse.error ?
-      dispatch(loginFail(authResponse.error)) :
-      dispatch(loginSuccess(authResponse))
+  // const handleClick = async () => {
+  //   dispatch(loginRequest())
+  //   const authResponse = await signInWithGoogle()
+  //   authResponse.error ?
+  //     dispatch(loginFail(authResponse.error)) :
+  //     dispatch(loginSuccess(authResponse))
 
-    dispatch(fetchSubscriptionsRequest())
-    const subscriptionsResponse = await YTAPIManager.getSubscriptions()
-    subscriptionsResponse.error ?
-      dispatch(fetchSubscriptionsFail(subscriptionsResponse.error)) :
-      dispatch(fetchSubscriptionsSuccess(subscriptionsResponse))
-  }
+  //   dispatch(fetchSubscriptionsRequest())
+  //   const subscriptionsResponse = await YTAPIManager.getSubscriptions()
+  //   subscriptionsResponse.error ?
+  //     dispatch(fetchSubscriptionsFail(subscriptionsResponse.error)) :
+  //     dispatch(fetchSubscriptionsSuccess(subscriptionsResponse))
+  // }
 
   return (
     <Button 
       variant="outlined"
       color="primary"
-      onClick={handleClick}
+      // onClick={handleClick}
       sx={{ py: 1, fontSize: "1.4rem", borderRadius: "2px", width: "170px", m:1}}
     >
       <AccountCircleOutlinedIcon sx={{fontSize: 24, mb: "0.2rem", mr: 1}}/>

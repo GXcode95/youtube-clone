@@ -13,14 +13,14 @@ const API = axios.create({
 //   baseURL: 'https://youtube.googleapis.com/youtube/v3/',
 // });
 
-authAPI.interceptors.request.use(({ headers, ...config }) => ({
-  ...config,
-  headers: {
-      ...headers,
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer  ${headers.Authorization || Cookies.get('token')}`,
-  },
-}));
+// authAPI.interceptors.request.use(({ headers, ...config }) => ({
+//   ...config,
+//   headers: {
+//       ...headers,
+//       'Content-Type': 'application/json',
+//       'Authorization': `Bearer  ${headers.Authorization || Cookies.get('token')}`,
+//   },
+// }));
 
 const bestThumbnails = (thumbnails) => {
   if (thumbnails.maxres) 
@@ -169,7 +169,7 @@ export default class YTAPIManager {
 
     return videos
   }
-  
+
   static async getMostPopularByTag(tagId) {
     const url = `videos?part=snippet%2C%20contentDetails%2C%20statistics&chart=mostPopular&maxResults=20&videoCategoryId=${tagId}`
     
@@ -237,7 +237,7 @@ export default class YTAPIManager {
       `commentThreads?part=snippet&videoId=${videoId}&pageToken=${pageToken}` :
       `commentThreads?part=snippet&videoId=${videoId}`
 
-    const commentsResponse = await API.get(avatarUrl)
+    const commentsResponse = await API.get(url)
     // console.log("APIM # getComments", commentsResponse)
     
     const comments = await buildCommentObj(commentsResponse.data)
