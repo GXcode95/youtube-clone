@@ -7,7 +7,7 @@ import addSpaceToNumber from 'helpers/addSpaceToNumbers'
 
 const CommentCard = ({comment}) => {
 
-
+  const createMarkup = (text) => { return {__html: text} };
   const handleDate = (comment) => {
     let date = formatPublishDate(comment.updatedAt) 
     if (comment.updatedAt !== comment.publishedAt)
@@ -20,15 +20,17 @@ const CommentCard = ({comment}) => {
       <Avatar sx={{height: 40, width: 40}}>
         <img src={comment.author.avatarUrl} />
       </Avatar>
-      {console.log("comment", comment)}
       <Box>
+        
         <Stack direction="row" spacing={1} mb={0.5}>
           <Typography sx={{fontSize: "1.3rem", fontWeight: 600}}>{comment.author.name}</Typography>
           <Typography variant="videoSubtitle">il y a {handleDate(comment)}</Typography>
         </Stack>
+        
         <Typography sx={{fontSize: '1.4rem'}}>
-          {comment.text}
+          <div dangerouslySetInnerHTML={createMarkup(comment.text)} />
         </Typography>
+        
         <Box display="flex" alignItems="center" my={0.4}>
           <IconButton>
             <ThumbUpOutlinedIcon sx={{fontSize:'1.6rem'}}/>
@@ -37,10 +39,11 @@ const CommentCard = ({comment}) => {
             {addSpaceToNumber(comment.likeCount)}
           </Typography>
           <IconButton>
-            <ThumbDownAltOutlinedIcon />
+            <ThumbDownAltOutlinedIcon sx={{fontSize:'1.6rem'}} />
           </IconButton>
           <Button variant="text" sx={{fontSize: "1.2rem",color: "dark.light"}}>Répondre</Button>
         </Box>
+
       </Box>
     </Box>
   )

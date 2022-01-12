@@ -51,7 +51,7 @@ const CardBig = ({video}) => {
             {handleSubscriberCount(video.channel.statistics.subscriberCount)}
           </Typography>
           
-          <Typography variant="subtitle" overflow="hidden" maxHeight={readMore ? "100%" : "6rem"} sx={{fontSize: "1.4rem"}}>
+          <Typography variant="subtitle" className="description" overflow="hidden" maxHeight={readMore ? "100%" : "6rem"} sx={{fontSize: "1.4rem"}}>
             {video.description}
           </Typography>
           

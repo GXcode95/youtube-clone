@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom'
 import CardStandard from './CardStandard.jsx'
 import CardLarge from './CardLarge.jsx'
 import CardSmall from './CardSmall.jsx'
+import './index.scss'
 
 const VideoCard = ({video, type="vertical", size="standard"}) => {
   const navigate = useNavigate()
