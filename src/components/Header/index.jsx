@@ -20,9 +20,9 @@ const Header = ({ setSearch }) => {
   }
 
   return (
-      <AppBar position="fixed" color="inherit" elevation={0} sx={{height: "7em"}}>
+      <AppBar position="fixed" color="inherit" elevation={0} sx={{height: "7em", px: 3}}>
         <Toolbar disableGutters={true}>
-          <Box display="flex" justifyContent="space-between" alignItems="center" width="100%" pl={3} pr={2}>
+          <Box display="flex" justifyContent="space-between" alignItems="center" width="100%" >
 
             {/***** Left Menu + Logo *****/}
             <Box display="flex" alignItems="center" gap={2}>

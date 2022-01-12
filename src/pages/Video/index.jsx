@@ -76,13 +76,11 @@ const Video = () => {
       // setComments(videoComments)
     }, [videoId]
   )
-  
-
 
   return (
-    <Box display="flex" ml={4} mr={2} mt="5em" pt="4em">
+    <Box display="flex" mt="5em" pt="4em" justifyContent="center" gap={2}>
       {video &&
-        <Box flex="1"  maxWidth="1300px" maxHeight="96vh" pr={{xs: 0, md:2}} >
+        <Box flex="1"  maxWidth="1300px" maxHeight="96vh">
           <CardBig video={video} />
           <Box display={{lg:"none"}}>
             <VideoColumn videos={relatedVideos} size="small"/> 

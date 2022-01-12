@@ -12,6 +12,10 @@
   }
 }
 
+.MuiListItemButton-root {
+  padding: 0 !important;
+}
+
 @media (max-width: 1300px) {
   .sidebarText {
     display: none

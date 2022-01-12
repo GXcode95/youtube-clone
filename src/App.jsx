@@ -18,7 +18,7 @@ const App = () => {
   const [search, setSearch] = React.useState()
 
   return (
-    <div className='App' style={{maxWidth: "100vw",maxHeight: "100vh", overflowX: "hidden"}}>
+    <div className='App' >
       <ThemeProvider theme={light}>
         <CssBaseline />
         <Router>

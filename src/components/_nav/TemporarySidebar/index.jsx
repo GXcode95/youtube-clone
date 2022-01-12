@@ -32,7 +32,7 @@ import VideoLibraryOutlinedIcon from '@mui/icons-material/VideoLibraryOutlined';
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-       <List>
+       <List sx={{pl: 3}}>
           <ItemRow
             icon={<HomeOutlinedIcon sx={{fontSize: "2.6rem"}} />}
             title="Accueil" 
