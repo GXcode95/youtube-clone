@@ -9,9 +9,9 @@ const API = axios.create({
   },
 });
 
-const authAPI = axios.create({ 
-  baseURL: 'https://youtube.googleapis.com/youtube/v3/',
-});
+// const authAPI = axios.create({ 
+//   baseURL: 'https://youtube.googleapis.com/youtube/v3/',
+// });
 
 authAPI.interceptors.request.use(({ headers, ...config }) => ({
   ...config,
@@ -76,7 +76,6 @@ const buildVideoObj = async (data) => {
     return videos
 
   } catch(error) {
-    console.log("ERROR: ",error)
     return { error }
   }
 }
@@ -97,33 +96,32 @@ const buildVideoSearchObj = async (data) => {
 
     return videos
   } catch(error) {
-    console.log("ERROR: ",error)
     return { error }
   }
 }
 
-const buildSubscriptions = async (data) => {
-  try {
-    const subscriptions = data.items.map( item => {
-      console.log("lkfjdlksf", item)
-      const subscription = {
-        id: item.id,
-        channelId: item.snippet.resourceId.channelId,
-        channelTitle: item.snippet.title,
-        channelthumbnails: {
-          ...item.snippet.thumbnails,
-          best: bestThumbnails(item.snippet.thumbnails)
-        }
-      }
-      return subscription
-    })
+// const buildSubscriptions = async (data) => {
+//   try {
+//     const subscriptions = data.items.map( item => {
+//       console.log("lkfjdlksf", item)
+//       const subscription = {
+//         id: item.id,
+//         channelId: item.snippet.resourceId.channelId,
+//         channelTitle: item.snippet.title,
+//         channelthumbnails: {
+//           ...item.snippet.thumbnails,
+//           best: bestThumbnails(item.snippet.thumbnails)
+//         }
+//       }
+//       return subscription
+//     })
 
-    return subscriptions
-  } catch(error) {
-    console.log("ERROR: ",error)
-    return { error }
-  }
-}
+//     return subscriptions
+//   } catch(error) {
+//     console.log("ERROR: ",error)
+//     return { error }
+//   }
+// }
 
 const buildCommentObj = async (data) => {
   try {
@@ -147,7 +145,6 @@ const buildCommentObj = async (data) => {
 
     return comments
   } catch (error) {
-    console.log("ERROR COMMENT BUILD:", error)
     return { error }
   }
 }
@@ -163,6 +160,22 @@ export default class YTAPIManager {
     const videoResponse = await API.get(url)
 
     // console.log("APIM # getMostPopular", videoResponse)
+
+    const videos = await buildVideoObj(videoResponse.data)
+
+    videoResponse.data.nextPageToken ?
+      Cookies.set("nextPageToken", videoResponse.data.nextPageToken) :
+      Cookies.remove("nextPageToken")
+
+    return videos
+  }
+  
+  static async getMostPopularByTag(tagId) {
+    const url = `videos?part=snippet%2C%20contentDetails%2C%20statistics&chart=mostPopular&maxResults=20&videoCategoryId=${tagId}`
+    
+    const videoResponse = await API.get(url)
+
+    // console.log("APIM # getMostPopularByTag", videoResponse)
 
     const videos = await buildVideoObj(videoResponse.data)
 
@@ -206,7 +219,6 @@ export default class YTAPIManager {
     // console.log("APIM # getVideoById", videoResponse)
     
     const videos = await buildVideoObj(videoResponse.data)
-    console.log(videos)
     return videos[0]
   }
 
@@ -220,27 +232,12 @@ export default class YTAPIManager {
     return videos
   }
 
-  static async  getSubscriptions () {
-    try {
-      const subscriptionsResponse = await authAPI.get("/subscriptions?part=snippet%2CcontentDetails&mine=true")
-      // console.log("APIM # getSubscriptions", subscriptionsResponse)
-      
-      const subscriptions = await buildSubscriptions(subscriptionsResponse.data)
-      console.log("reponse subs", subscriptions)
-
-      return subscriptions
-    } catch (error) {
-      // console.log("APIM # getSubscriptions", error)
-      return {error}
-    }
-  }
-
   static async getVideoComments(videoId, pageToken) {
     const url = pageToken ? 
       `commentThreads?part=snippet&videoId=${videoId}&pageToken=${pageToken}` :
       `commentThreads?part=snippet&videoId=${videoId}`
 
-    const commentsResponse = await API.get(`commentThreads?part=snippet&videoId=${videoId}`)
+    const commentsResponse = await API.get(avatarUrl)
     // console.log("APIM # getComments", commentsResponse)
     
     const comments = await buildCommentObj(commentsResponse.data)
@@ -252,4 +249,19 @@ export default class YTAPIManager {
 
     return comments
   }
+
+    // static async  getSubscriptions () {
+  //   try {
+  //     const subscriptionsResponse = await authAPI.get("/subscriptions?part=snippet%2CcontentDetails&mine=true")
+  //     // console.log("APIM # getSubscriptions", subscriptionsResponse)
+      
+  //     const subscriptions = await buildSubscriptions(subscriptionsResponse.data)
+  //     console.log("reponse subs", subscriptions)
+
+  //     return subscriptions
+  //   } catch (error) {
+  //     // console.log("APIM # getSubscriptions", error)
+  //     return {error}
+  //   }
+  // }
 }

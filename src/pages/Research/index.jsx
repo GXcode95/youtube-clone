@@ -45,16 +45,12 @@ const Research = ({search}) => {
         if (!response.error)
           setVideos(response)
       }
-      if (search){
-        getVideos(search)
-      }
-      // setVideos(searchData)
+      if (search) getVideos(search)
     },[search]
   )
 
   return (
     <Box display="flex" mt="5em">
-    {/* here mt is used to handle the size of the (fixed) header, otherwise the top of the box would be behind the header */}
       <Sidebar />
       <Box flex="1" maxWidth="100%" maxHeight="96vh" pt="4em">
 

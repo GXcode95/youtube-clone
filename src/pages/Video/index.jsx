@@ -3,7 +3,6 @@ import { Box, Typography, Stack } from '@mui/material'
 import Progress from 'components/Progress'
 import { useParams } from 'react-router-dom'
 import YTAPIManager from 'services/youtube'
-import { oneVideo, related, videoComments} from 'services/data'
 import './index.scss'
 import VideoColumn from 'components/_videos/VideoColumn'
 import CardBig from 'components/_videos/VideoCard/CardBig'
@@ -45,23 +44,18 @@ const Video = () => {
     () => {
       const fetchVideo = async () => {
         const response = await YTAPIManager.getVideoById(videoId)
-        console.log("DATA --- ONEVIDEO --- : ", response)
         if (!response.error) setVideo(response)
       }
       if (videoId) fetchVideo()
-      
-      // setVideo(oneVideo)
     },[videoId]
   )
   React.useEffect( //* related
     () => {
       const fetchRelated = async () => {
         const response = await YTAPIManager.getRelatedVideos(videoId)
-        console.log("DATA --- RELATED --- : ", response)
         if (!response.error) setRelatedVideos(response)
       }
       if (videoId)  fetchRelated()
-      // setRelatedVideos(related)
     },[videoId]
   )
   React.useEffect( //* videoComments
@@ -71,8 +65,6 @@ const Video = () => {
         if (!response.error) setComments(response)
       }
       if (videoId) fetchComments()
-
-      // setComments(videoComments)
     }, [videoId]
   )
 

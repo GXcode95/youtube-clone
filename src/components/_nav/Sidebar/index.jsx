@@ -11,7 +11,7 @@ const Sidebar = () => {
 
   return (
     <Box flex={{md: 0, lg:0.2, xl:0.17 }} display={{xs: "none", sm:"block", position: "relative"}}>
-      <nav aria-label="sidebar menu" style={{ position: "fixed"}}>
+      <nav aria-label="sidebar menu" style={{ position: "sticky"}}>
         <List>
           <ItemRow
             icon={<HomeOutlinedIcon sx={{fontSize: "2.6rem"}} />}
