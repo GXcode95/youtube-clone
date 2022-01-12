@@ -9,9 +9,6 @@ const ItemRow = ({icon, title, sxText, sxIcon, link}) => {
   }
   return (
     <ListItem disablePadding sx={{fontSize:"3rem", py:2, m:0, position: "relative"}} onClick={onClick}>
-      <Box className='smallTitle' display={{lg: "none"}}>
-        <span>{title}</span>
-      </Box>
       <ListItemButton >
         <ListItemIcon sx={sxIcon}>
           {icon}

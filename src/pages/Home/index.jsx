@@ -63,8 +63,8 @@ const Home = () => {
     <Box display="flex" mt="5em">
       {/* here mt is used to handle the size of the (fixed) header, otherwise the top of the box would be behind the header */}
         <Sidebar />
-        <Box flex="1" maxWidth="100%" pt="4em">
-          <Box pr={{xs:2, sm:1}} pl={{xs:2, md:0}} pt="4.5em">
+        <Box flex="1" maxWidth="100%" pt="4em" pl={{xs: 0, sm: "40px", lg: 0}} >
+          <Box  pt="4.5em">
             { tags && <TagList tags={tags} selectedTag={selectedTag} setSelectedTag={setSelectedTag}/> }
             <Grid container rowSpacing={2}>
               {videos && videos.map((video, i) => {

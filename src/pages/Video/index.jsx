@@ -10,7 +10,6 @@ import CardBig from 'components/_videos/VideoCard/CardBig'
 import CommentCard from 'components/CommentCard'
 import addSpaceToNumber from 'helpers/addSpaceToNumbers'
 import Cookies from 'js-cookie'
-import { useSelector } from 'react-redux'
 
 const Video = () => {
   const { videoId } = useParams()
@@ -83,7 +82,7 @@ const Video = () => {
         <Box flex="1"  maxWidth="1300px" maxHeight="96vh">
           <CardBig video={video} />
           <Box display={{lg:"none"}}>
-            <VideoColumn videos={relatedVideos} size="small"/> 
+            <VideoColumn videos={relatedVideos} size="small"/>
           </Box>
           <Stack spacing={1.5}>
             <Typography sx={{fontSize: "1.6rem", fontWeight: 400}}>
@@ -106,7 +105,9 @@ const Video = () => {
               )
             })}
           </Stack>
+
           {loading && <Progress /> }
+
         </Box>
       }
 

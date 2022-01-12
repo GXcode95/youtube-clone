@@ -10,15 +10,13 @@ import ItemRow from './ItemRow'
 const Sidebar = () => {
 
   return (
-    <Box flex={{md: 0, lg:0.2, xl:0.17 }} display={{xs: "none", sm:"block"}}>
-      <nav aria-label="sidebar menu">
+    <Box flex={{md: 0, lg:0.2, xl:0.17 }} display={{xs: "none", sm:"block", position: "relative"}}>
+      <nav aria-label="sidebar menu" style={{ position: "fixed"}}>
         <List>
-
           <ItemRow
             icon={<HomeOutlinedIcon sx={{fontSize: "2.6rem"}} />}
             title="Accueil" 
-            sxText={{display: {xs: "none", lg: "block"} }}
-            sxText2={{}}
+            sxText={{display: {xs: "none", md: "none", lg: "block"} }}
             sxIcon={{ minWidth: {xs: 0, lg:56 } }}
             link='/'
           />
