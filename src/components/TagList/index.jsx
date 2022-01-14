@@ -30,15 +30,15 @@ const TagList = ({tags, setSelectedTag, selectedTag }) => {
         pl={"3rem"}
         pr={"1rem"}
       >
-        <Box display="flex" justifyContent="center" alignItems="center" 
-          sx={{width: "3.5rem", height: "3.5rem", position: "fixed", bgcolor: "white", transform:"translateX(-3rem)", zIndex: "15"}}
+        {/* <Box display="flex" justifyContent="center" alignItems="center" 
+          sx={{width: "3.5rem", height: "3.5rem", position: "absolute", bgcolor: "white", transform:"translateX(-3rem)", zIndex: "15"}}
           onClick={e => {
             let cg = document.querySelector(".chip-group")
-            cg.scrollLeft += 150
+            cg.scrollLeft -= 150
           }}
         >
           <ArrowBackIosIcon sx={{fontSize: "2.5rem", ml: 1}}/>
-        </Box>
+        </Box> */}
         
         {tags && tags.map( (tag,i) => 
           <Chip 
@@ -51,15 +51,15 @@ const TagList = ({tags, setSelectedTag, selectedTag }) => {
           />
         )}
         
-        <Box display="flex" justifyContent="center" alignItems="center" 
-          sx={{width: "3.5rem", height: "3.5rem", position: "fixed", right: 0, bgcolor: "white", zIndex: "15"}}
+        {/* <Box display="flex" justifyContent="center" alignItems="center" 
+          sx={{width: "3.5rem", height: "3.5rem", position: "absolute", right: 0, bgcolor: "white", zIndex: "15"}}
           onClick={e => {
             let cg = document.querySelector(".chip-group")
-            cg.scrollLeft -= 150
+            cg.scrollLeft += 150
           }}
         >
           <ArrowForwardIosIcon sx={{fontSize: "2.5rem"}}/>
-        </Box>
+        </Box> */}
 
       </Stack>
   )
