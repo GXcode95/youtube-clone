@@ -27,9 +27,7 @@ const CommentCard = ({comment}) => {
           <Typography variant="videoSubtitle">il y a {handleDate(comment)}</Typography>
         </Stack>
         
-        <Typography sx={{fontSize: '1.4rem'}}>
-          <div dangerouslySetInnerHTML={createMarkup(comment.text)} />
-        </Typography>
+          <div dangerouslySetInnerHTML={createMarkup(comment.text)} style={{fontSize: "1.4rem"}}/>
         
         <Box display="flex" alignItems="center" my={0.4}>
           <IconButton>

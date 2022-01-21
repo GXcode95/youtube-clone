@@ -7,6 +7,8 @@ import formatBigNumber from 'helpers/formatBigNumber'
 const Statistics = ({video, style={}, compact=true }) => {
   
   const handleViews = () => {
+    console.log("//////////////////////////////")
+    console.log(video.statistics)
     return compact ?
       formatBigNumber(video.statistics.viewCount) :
       addSpaceToNumber(video.statistics.viewCount)

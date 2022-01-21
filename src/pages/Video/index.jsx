@@ -102,12 +102,12 @@ const Video = () => {
 
         </Box>
       }
-
+{/* 
       {relatedVideos && 
         <Box display={{xs: "none", lg:"block"}}>
           <VideoColumn videos={relatedVideos} size="small"/> 
         </Box>
-      }
+      } */}
 
     </Box>
   )
