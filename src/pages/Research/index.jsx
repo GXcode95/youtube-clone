@@ -3,12 +3,9 @@ import YTAPIManager from 'services/youtube'
 import { Box } from '@mui/material'
 import Progress from 'components/Progress'
 
-import VideoColumn from 'components/_videos/VideoColumn'
-import TagList from 'components/TagList'
 import { searchData } from 'services/data.js'
 import Sidebar from 'components/_nav/Sidebar'
 import Cookies from 'js-cookie'
-import { useSelector } from 'react-redux'
 import VideoCard from 'components/_videos/VideoCard'
 
 const Research = ({search}) => {
@@ -61,7 +58,9 @@ const Research = ({search}) => {
             </Box>
           )}
         </Box>
+
         {loading && <Progress /> }
+        
       </Box>
     </Box>
   )
