@@ -10,7 +10,7 @@ import ItemRow from './ItemRow'
 const Sidebar = () => {
 
   return (
-    <Box flex={{md: 0, lg:0.2, xl:0.17 }} display={{xs: "none", sm:"block", position: "relative"}}>
+    <Box flex={{xs: 0, md: 0, lg:0.2, xl:0.17 }} display={{xs: "none", sm:"block", position: "relative"}}>
       <nav aria-label="sidebar menu" style={{ position: "sticky"}}>
         <List>
           <ItemRow

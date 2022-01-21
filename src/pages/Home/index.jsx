@@ -56,14 +56,14 @@ const Home = () => {
                 if (i === videos.length - 1) {
                   return (
                     <Grid item ref={lastVideoElementRef} lg={3} md={4} sm={6} xs={12} key={i}>
-                      <VideoCard video={video} />
+                      <VideoCard video={video} variant="standard" />
                     </Grid>
                   )
                 }
                 
                 return (
                   <Grid item lg={3} md={4} sm={6} xs={12} key={i}>
-                      <VideoCard video={video} />
+                      <VideoCard video={video} variant="standard" />
                   </Grid>
                 )
               })}

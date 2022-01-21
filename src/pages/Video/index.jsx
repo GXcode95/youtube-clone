@@ -5,10 +5,10 @@ import { useParams } from 'react-router-dom'
 import YTAPIManager from 'services/youtube'
 import './index.scss'
 import VideoColumn from 'components/_videos/VideoColumn'
-import CardBig from 'components/_videos/VideoCard/CardBig'
 import CommentCard from 'components/CommentCard'
 import addSpaceToNumber from 'helpers/addSpaceToNumbers'
 import Cookies from 'js-cookie'
+import VideoCard from 'components/_videos/VideoCard'
 
 const Video = () => {
   const { videoId } = useParams()
@@ -72,9 +72,17 @@ const Video = () => {
     <Box display="flex" mt="5em" pt="4em" justifyContent="center" gap={2}>
       {video &&
         <Box flex="1"  maxWidth="1300px" maxHeight="96vh">
-          <CardBig video={video} />
+          <VideoCard video={video} variant="big"/>
           <Box display={{lg:"none"}}>
-            <VideoColumn videos={relatedVideos} size="small"/>
+            {/* <VideoColumn videos={relatedVideos} size="small"/> */}
+
+            <Box sx={{pb: 5}}>
+              {relatedVideos && relatedVideos.map((video, i) => 
+                <Box key={i} width={"402px"}>
+                  <VideoCard video={video} variant="small"/>
+                </Box>
+              )}
+            </Box>
           </Box>
           <Stack spacing={1.5}>
             <Typography sx={{fontSize: "1.6rem", fontWeight: 400}}>
@@ -102,12 +110,18 @@ const Video = () => {
 
         </Box>
       }
-{/* 
+
       {relatedVideos && 
         <Box display={{xs: "none", lg:"block"}}>
-          <VideoColumn videos={relatedVideos} size="small"/> 
+           <Box sx={{pb: 5}}>
+              {relatedVideos && relatedVideos.map((video, i) => 
+                <Box key={i} width={"402px"}>
+                  <VideoCard video={video} variant="small"/>
+                </Box>
+              )}
+            </Box>
         </Box>
-      } */}
+      }
 
     </Box>
   )

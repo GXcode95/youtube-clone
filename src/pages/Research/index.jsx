@@ -51,16 +51,17 @@ const Research = ({search}) => {
       <Sidebar />
       <Box flex="1" maxWidth="100%" maxHeight="96vh" pt="4em">
 
-        <Box pr={{xs:2, sm:1}} pl={{xs:2, md:0}} pb={5}>
+        <Box pr={{xs:2, sm:1}} pl={{xs:2, md:0}} pb={5} >
           {videos && videos.map((video, i) => 
             <Box key={i} ref={lastVideoElementRef}>
-              <VideoCard video={video} type="horizontal"/>
+              <VideoCard video={video} variant="large"/>
             </Box>
           )}
         </Box>
+        
 
         {loading && <Progress /> }
-        
+        {console.log("cideossearch; ", videos)}
       </Box>
     </Box>
   )

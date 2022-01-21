@@ -34,16 +34,23 @@ const formatDuration = (isoDuration) => {
    
 }
 
+const formatDescription = (description) => {
+  if(description === "") return [description]
+  let formattedDescription = description.split("\n")
+
+  return formattedDescription
+}
 const buildVideoObj = async (data) => {
   try {
     const videos = await Promise.all(data.items.map( async (item) => {
       const video = {}
+      const description = item.snippet.localized.description || ""
       // Video infos
       video.thumbnails = item.snippet.thumbnails
       video.thumbnails.best = bestThumbnails(video.thumbnails)
       video.id = item.contentDetails.id || item.id
       video.title = item.snippet.localized.title
-      video.description = item.snippet.localized.description || ""
+      video.description = formatDescription(description)
       video.duration = formatDuration(item.contentDetails.duration)
       video.categoryId = item.snippet.categoryId
       video.statistics = item.statistics
@@ -79,8 +86,8 @@ const buildVideoSearchObj = async (data) => {
     // so i loop through the tempvideos array to keep only the value that aren't undefined
     const videos = [] 
     tempVideos.map(video => {
-        if(video) videos.push(video)
-      })
+      if(video) videos.push(video)
+    })
 
     return videos
   } catch(error) {
@@ -152,7 +159,7 @@ export default class YTAPIManager {
     `search?part=snippet&maxResults=15&q=${query}&pageToken=${pageToken}` :
     `search?part=snippet&maxResults=15&q=${query}`
     const videosResponse = await API.get(url)
-    // console.log("APIM # getVideoSearch", videosResponse)
+    console.log("APIM # getVideoSearch", videosResponse)
     
     const videos = await buildVideoSearchObj(videosResponse.data)
 
